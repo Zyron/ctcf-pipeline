@@ -1,8 +1,9 @@
 # ATAC-seq Differential Peak Analysis Tool
 
-![Python](https://img.shields.io/badge/python-≥3.6-blue.svg)
+![Python](https://img.shields.io/badge/python-≥3.13-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Version](https://img.shields.io/badge/version-0.1.0-orange.svg)
+
 A command-line tool for comparing ATAC-seq peaks between untreated and treated samples. This tool identifies peaks that are lost or gained after treatment and can optionally extract signal values at these differential peak regions.
 
 ## Features
@@ -16,7 +17,7 @@ A command-line tool for comparing ATAC-seq peaks between untreated and treated s
 
 ### Prerequisites
 
-- Python 3.6 or higher
+- Python 3.13
 - pip package manager
 
 ### Setup
@@ -42,7 +43,6 @@ This tool was developed and tested using publicly available ATAC-seq data from t
 - HCT116 ATAC-seq experiment: [ENCSR260SWI](https://www.encodeproject.org/experiments/ENCSR260SWI/)
   - Treated signal: [ENCFF243DOC.bigWig](https://www.encodeproject.org/files/ENCFF243DOC/)
   - Treated peaks: [ENCFF734FSK.bed](https://www.encodeproject.org/files/ENCFF734FSK/)
-  - Treated signal (alternate): [ENCFF046JCE.bigWig](https://www.encodeproject.org/files/ENCFF046JCE/)
 - Untreated ATAC-seq experiment: [ENCSR328JGW](https://www.encodeproject.org/experiments/ENCSR328JGW/)
   - Untreated peaks: [ENCFF321FBR.bed.gz](https://www.encodeproject.org/files/ENCFF321FBR/)
   - Untreated signal: [ENCFF833UVV.bigWig](https://www.encodeproject.org/files/ENCFF833UVV/)
@@ -67,18 +67,25 @@ For those who want to get started immediately:
 # Install dependencies
 pip install -r requirements.txt
 
-# Run the analysis with example data
+# Run the analysis without signal file
 python app.py \
   --untreated data/untreated/ENCFF321FBR.bed.gz \
   --treated data/treated/ENCFF734FSK.bed \
-  --outdir data/output
+  --outdir data/output_nosignal
 
-# Run with signal analysis
+# Run with treated signal analysis
 python app.py \
   --untreated data/untreated/ENCFF321FBR.bed.gz \
   --treated data/treated/ENCFF734FSK.bed \
   --signal data/treated/ENCFF243DOC.bigWig \
-  --outdir data/output
+  --outdir data/output_treated_signal
+
+# Run with untreated signal analysis
+python app.py \
+  --untreated data/untreated/ENCFF321FBR.bed.gz \
+  --treated data/treated/ENCFF734FSK.bed \
+  --signal data/untreated/ENCFF833UVV.bigWig \
+  --outdir data/output_untreated_signal
 ```
 
 ## Usage
@@ -100,7 +107,7 @@ python app.py \
   --untreated data/untreated/ENCFF321FBR.bed.gz \
   --treated data/treated/ENCFF734FSK.bed \
   --signal data/treated/ENCFF243DOC.bigWig \
-  --outdir data/output
+  --outdir data/output_treated_signal
 ```
 
 ## Input Files
@@ -111,7 +118,7 @@ python app.py \
 
 ## Output Files
 
-The tool generates the following output files:
+The tool generates a new output directory for each run, containing the following files:
 
 1. `lost_in_treated.bed`: Peaks present in untreated but absent in treated samples
 2. `gained_in_treated.bed`: Peaks present in treated but absent in untreated samples
@@ -127,12 +134,12 @@ When you run the tool, you'll see terminal output similar to:
 ```
 Loading and comparing peaks...
 Done comparing peaks:
-  Peaks lost in treated:  1253 → data/output/lost_in_treated.bed
-  Peaks gained in treated: 879 → data/output/gained_in_treated.bed
+  Peaks lost in treated:  1253 → data/output_treated_signal/lost_in_treated.bed
+  Peaks gained in treated: 879 → data/output_treated_signal/gained_in_treated.bed
 Extracting signal from: data/treated/ENCFF243DOC.bigWig
 Saved signal values:
-  Lost peak signals → data/output/lost_signal.tsv
-  Gained peak signals → data/output/gained_signal.tsv
+  Lost peak signals → data/output_treated_signal/lost_signal.tsv
+  Gained peak signals → data/output_treated_signal/gained_signal.tsv
 ```
 
 Example content of `lost_in_treated.bed`:
