@@ -2,6 +2,7 @@ import argparse
 import os
 from utils import peak_utils
 from utils import signal_utils
+from utils import plot_utils
 
 def main():
     parser = argparse.ArgumentParser(description="Compare ATAC-seq peaks between untreated and treated samples.")
@@ -12,6 +13,7 @@ def main():
 
     args = parser.parse_args()
     os.makedirs(args.outdir, exist_ok=True)
+    os.makedirs("data", exist_ok=True)  # Create empty data folder
 
     print("Loading and comparing peaks...")
     lost, gained = peak_utils.compare_peaks(args.untreated, args.treated)
@@ -24,7 +26,6 @@ def main():
     print(f"Done comparing peaks:")
     print(f"  Peaks lost in treated:  {lost.df.shape[0]} → {lost_path}")
     print(f"  Peaks gained in treated: {gained.df.shape[0]} → {gained_path}")
-
 
     if args.signal:
         print(f"Extracting signal from: {args.signal}")
@@ -39,6 +40,21 @@ def main():
         print(f"Saved signal values:")
         print(f"  Lost peak signals → {lost_signal_path}")
         print(f"  Gained peak signals → {gained_signal_path}")
+        
+        # Generate histogram plots if signal files were saved
+        if "untreated" in args.signal:
+            plot_title = "Distribution of ATAC-seq Signal (Untreated bigWig)"
+            plot_filename = os.path.join(args.outdir, "Figure_untreated.png")
+        else:
+            plot_title = "Distribution of ATAC-seq Signal (Treated bigWig)"
+            plot_filename = os.path.join(args.outdir, "Figure_treated.png")
+
+        plot_utils.plot_signal_histogram(
+            signal_path=args.outdir,
+            title=plot_title,
+            output_filename=plot_filename
+        )
+        print(f"  Signal plot → {plot_filename}")
 
 if __name__ == "__main__":
     main()

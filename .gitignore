@@ -73,10 +73,10 @@ venv.bak/
 .DS_Store
 
 # Project specific
-data/output/
+# Keep data directories but ignore files
+data/*
+data/**/*
+!data/**/
+!data/**/.gitkeep
 
-# Large data files
-/data/
-!/data/example/
-/data/example/*
-!/data/example/*.small.*
+.DS_Store
