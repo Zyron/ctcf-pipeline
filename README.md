@@ -23,7 +23,7 @@ A command-line tool for comparing ATAC-seq peaks between untreated and treated s
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/atac_cli.git
+   git clone https://github.com/Zyron/ctcf-pipeline.git
    cd atac_cli
    ```
 
@@ -33,6 +33,30 @@ A command-line tool for comparing ATAC-seq peaks between untreated and treated s
    ```
 
    **Note:** This tool has been tested with the following package versions: pyranges 0.1.4, pyBigWig 0.3.24, and pandas 2.2.3.
+
+## Data Sources
+
+This tool was developed and tested using ATAC-seq data from the following sources:
+
+### ENCODE Project
+- HCT116 ATAC-seq experiments: [ENCODE Search Results](https://www.encodeproject.org/search/?type=Experiment&assay_title=ATAC-seq&biosample_ontology.term_name=HCT116)
+- Specific experiment: [ENCSR260SWI](https://www.encodeproject.org/experiments/ENCSR260SWI/)
+
+### GEO Database
+- Additional datasets: [GSE187210](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE187210)
+
+### Data Directory Structure
+After downloading the required data files, organize them in the following structure:
+```
+data/
+├── treated/
+│   └── [ATAC-seq files for treated condition]
+└── untreated/
+    └── [ATAC-seq files for untreated condition]
+```
+
+Note: Due to file size limitations, the data files are not included in this repository. Please download them from the sources above and place them in the appropriate directories.
+
 ## Quick Start
 
 For those who want to get started immediately:
