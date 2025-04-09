@@ -24,7 +24,7 @@ A command-line tool for comparing ATAC-seq peaks between untreated and treated s
 1. Clone this repository:
    ```bash
    git clone https://github.com/Zyron/ctcf-pipeline.git
-   cd atac_cli
+   cd ctcf-pipeline
    ```
 
 2. Install required dependencies:
@@ -36,14 +36,16 @@ A command-line tool for comparing ATAC-seq peaks between untreated and treated s
 
 ## Data Sources
 
-This tool was developed and tested using ATAC-seq data from the following sources:
+This tool was developed and tested using publicly available ATAC-seq data from the ENCODE Project.
 
 ### ENCODE Project
-- HCT116 ATAC-seq experiments: [ENCODE Search Results](https://www.encodeproject.org/search/?type=Experiment&assay_title=ATAC-seq&biosample_ontology.term_name=HCT116)
-- Specific experiment: [ENCSR260SWI](https://www.encodeproject.org/experiments/ENCSR260SWI/)
-
-### GEO Database
-- Additional datasets: [GSE187210](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE187210)
+- HCT116 ATAC-seq experiment: [ENCSR260SWI](https://www.encodeproject.org/experiments/ENCSR260SWI/)
+  - Treated signal: [ENCFF243DOC.bigWig](https://www.encodeproject.org/files/ENCFF243DOC/)
+  - Treated peaks: [ENCFF734FSK.bed](https://www.encodeproject.org/files/ENCFF734FSK/)
+  - Treated signal (alternate): [ENCFF046JCE.bigWig](https://www.encodeproject.org/files/ENCFF046JCE/)
+- Untreated ATAC-seq experiment: [ENCSR328JGW](https://www.encodeproject.org/experiments/ENCSR328JGW/)
+  - Untreated peaks: [ENCFF321FBR.bed.gz](https://www.encodeproject.org/files/ENCFF321FBR/)
+  - Untreated signal: [ENCFF833UVV.bigWig](https://www.encodeproject.org/files/ENCFF833UVV/)
 
 ### Data Directory Structure
 After downloading the required data files, organize them in the following structure:
