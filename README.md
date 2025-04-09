@@ -1,10 +1,10 @@
-# ATAC-seq Differential Peak Analysis Tool
+# CTCF-CRISPR Chromatin Accessibility Pipeline
 
 ![Python](https://img.shields.io/badge/python-≥3.13-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Version](https://img.shields.io/badge/version-0.1.0-orange.svg)
 
-A command-line tool for comparing ATAC-seq peaks between untreated and treated samples. This tool identifies peaks that are lost or gained after treatment and can optionally extract signal values at these differential peak regions.
+A command-line pipeline for assessing chromatin accessibility changes after CRISPR-mediated CTCF site editing. This tool identifies peaks that are lost or gained after treatment and can optionally extract signal values at these differential peak regions.
 
 ## Features
 
