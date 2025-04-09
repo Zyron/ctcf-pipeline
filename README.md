@@ -12,6 +12,7 @@ A command-line tool for comparing ATAC-seq peaks between untreated and treated s
 - Identify peaks unique to each condition (lost or gained after treatment)
 - Extract and analyze signal intensity at differential peak regions
 - Output results in standard genomics formats (.bed, .tsv)
+- Generate signal plots (saved as PNG images) when a signal file is provided
 
 ## Installation
 
@@ -24,7 +25,7 @@ A command-line tool for comparing ATAC-seq peaks between untreated and treated s
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/Zyron/ctcf-pipeline.git
+   git clone git@github.com:Zyron/ctcf-pipeline.git
    cd ctcf-pipeline
    ```
 
@@ -90,7 +91,8 @@ python app.py \
 
 ## Implementation
 
-This pipeline identifies differential chromatin accessibility from ATAC-seq data by comparing peaks between untreated and CRISPR-edited samples. It works by parsing peak regions, comparing them with PyRanges, quantifying signal via pyBigWig, and generating summary statistics and histograms. The flowchart below outlines the main workflow:
+This pipeline identifies differential chromatin accessibility from ATAC-seq data by comparing peaks between untreated and CRISPR-edited samples. It works by parsing peak regions, comparing them with PyRanges, quantifying signal via pyBigWig, and generating summary statistics along with a signal plot. The flowchart below outlines the main workflow:
+
 ```
   Untreated BED + Treated BED
             │
@@ -100,7 +102,7 @@ This pipeline identifies differential chromatin accessibility from ATAC-seq data
             │
     [Extract signal from bigWig]
             │
-    [Generate .tsv + histograms]
+   [Generate .tsv files + signal plot]
 ```
 
 ## Usage
@@ -149,27 +151,52 @@ When you run the tool, you'll see terminal output similar to:
 ```
 Loading and comparing peaks...
 Done comparing peaks:
-  Peaks lost in treated:  1253 → data/output_treated_signal/lost_in_treated.bed
-  Peaks gained in treated: 879 → data/output_treated_signal/gained_in_treated.bed
+  Peaks lost in treated:  131773 → data/output_nosignal/lost_in_treated.bed
+  Peaks gained in treated: 106309 → data/output_nosignal/gained_in_treated.bed
+```
+
+A run with treated signal analysis produces:
+
+```
+Loading and comparing peaks...
+Done comparing peaks:
+  Peaks lost in treated:  131773 → data/output_treated_signal/lost_in_treated.bed
+  Peaks gained in treated: 106309 → data/output_treated_signal/gained_in_treated.bed
 Extracting signal from: data/treated/ENCFF243DOC.bigWig
 Saved signal values:
   Lost peak signals → data/output_treated_signal/lost_signal.tsv
   Gained peak signals → data/output_treated_signal/gained_signal.tsv
+  Signal plot → data/output_treated_signal/Figure_treated.png
 ```
+
+A run with untreated signal analysis produces similar output with files named accordingly (e.g., `Figure_untreated.png`).
 
 Example content of `lost_in_treated.bed`:
 ```
-chr1    565480    565750    peak_1    .    .
-chr1    569480    570000    peak_2    .    .
-chr2    781200    781500    peak_3    .    .
+chr1	151281150	151281177	.	1000	.	18.02459	2098.28711	2092.53076	975
+chr1	43650704	43650752	.	1000	.	21.51242	2030.96814	2025.28516	404
+chr1	151790075	151790083	.	1000	.	26.51963	2020.46899	2014.79834	540
+chr1	85277080	85277087	.	1000	.	22.67492	2010.8092	2005.15076	550
+chr1	244652583	244652584	.	1000	.	22.79047	1981.4137	1975.79688	242
 ```
 
 Example content of `lost_signal.tsv`:
 ```
-chrom    start    end    name    signal_mean    signal_max
-chr1    565480    565750    peak_1    4.23    7.85
-chr1    569480    570000    peak_2    3.17    5.62
-chr2    781200    781500    peak_3    5.89    9.14
+Chromosome    Start       End         Signal
+chr1          151281150   151281177   1.0202892709661413
+chr1          43650704    43650752    1.14902230600516
+chr1          151790075   151790083   1.2029950022697449
+...
+```
+
+Example content of `gained_signal.tsv`:
+```
+Chromosome    Start      End       Signal
+chr1          826738     826766    1.4911010733672552
+chr1          869489     869598    1.7651869802299989
+chr1          904135     904201    1.4459775758512092
+chr1          911012     911029    1.8545506351134355
+...
 ```
 
 ## Data Format Requirements
@@ -187,8 +214,8 @@ Additional columns may be present and will be preserved in the output.
 
 Example:
 ```
-chr1    565480    565750    .    .    .
-chr1    566480    567000    .    .    .
+chr1    151281150    151281177    .    .    .
+chr1    43650704    43650752    .    .    .
 ```
 
 ### BigWig Format
@@ -233,3 +260,4 @@ This software has been tested on macOS and Linux, and should also run on Windows
 ## License
 
 [MIT License](LICENSE)
+```
