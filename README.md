@@ -88,6 +88,21 @@ python app.py \
   --outdir data/output_untreated_signal
 ```
 
+## Implementation
+
+This pipeline identifies differential chromatin accessibility from ATAC-seq data by comparing peaks between untreated and CRISPR-edited samples. It works by parsing peak regions, comparing them with PyRanges, quantifying signal via pyBigWig, and generating summary statistics and histograms. The flowchart below outlines the main workflow:
+```
+  Untreated BED + Treated BED
+            │
+        [Compare peaks]
+            │
+   Lost peaks ←→ Gained peaks
+            │
+    [Extract signal from bigWig]
+            │
+    [Generate .tsv + histograms]
+```
+
 ## Usage
 
 Basic usage pattern:
@@ -210,6 +225,10 @@ If you encounter any problems or have questions about using this tool:
    - Any error messages
 
 For feature requests, please also use the GitHub issue tracker with a clear description of the proposed functionality.
+
+## Availability & Requirements
+
+This software has been tested on macOS and Linux, and should also run on Windows. Python 3.13+ is required, and dependencies can be installed from `requirements.txt`. See the Usage section for how to run the tool with example data.
 
 ## License
 
