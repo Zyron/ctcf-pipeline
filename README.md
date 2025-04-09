@@ -260,4 +260,3 @@ This software has been tested on macOS and Linux, and should also run on Windows
 ## License
 
 [MIT License](LICENSE)
-```
