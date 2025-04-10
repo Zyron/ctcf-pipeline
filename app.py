@@ -3,6 +3,7 @@ import os
 from utils import peak_utils
 from utils import signal_utils
 from utils import plot_utils
+from utils.stats_utils import summarize_peak_stats
 
 def main():
     parser = argparse.ArgumentParser(description="Compare ATAC-seq peaks between untreated and treated samples.")
@@ -55,6 +56,13 @@ def main():
             output_filename=plot_filename
         )
         print(f"  Signal plot → {plot_filename}")
+
+        summarize_peak_stats(
+            untreated_bed=args.untreated,
+            treated_bed=args.treated,
+            lost_tsv=lost_signal_path,
+            gained_tsv=gained_signal_path
+        )
 
 if __name__ == "__main__":
     main()
