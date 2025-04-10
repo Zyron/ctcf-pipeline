@@ -168,6 +168,12 @@ Saved signal values:
   Lost peak signals → data/output_treated_signal/lost_signal.tsv
   Gained peak signals → data/output_treated_signal/gained_signal.tsv
   Signal plot → data/output_treated_signal/Figure_treated.png
+
+--- Summary Statistics ---
+Peaks in untreated: 136292
+Peaks in treated: 110545
+Lost peaks: 131773 (96.7%)
+Gained peaks: 106309 (96.2%)
 ```
 
 A run with untreated signal analysis produces similar output with files named accordingly (e.g., `Figure_untreated.png`).
