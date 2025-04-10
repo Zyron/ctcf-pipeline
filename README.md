@@ -88,6 +88,7 @@ python app.py \
   --signal data/untreated/ENCFF833UVV.bigWig \
   --outdir data/output_untreated_signal
 ```
+Note: The `--signal` argument is optional. If omitted, the pipeline will only identify differential peaks without extracting signal intensity or generating plots.
 
 ## Implementation
 
@@ -253,6 +254,7 @@ This utility is particularly useful if your peak files are in bigBed format and 
 - [pyranges](https://github.com/biocore-ntnu/pyranges) (>= 0.1.4): For efficient genomic range operations
 - [pyBigWig](https://github.com/deeptools/pyBigWig) (>= 0.3.24): For handling bigWig signal files
 - [pandas](https://pandas.pydata.org/) (>= 2.2.3): For data manipulation
+- [matplotlib](https://matplotlib.org/) (>= 3.8.4): For plotting signal intensity histograms
 
 ## Issues and Support
 
