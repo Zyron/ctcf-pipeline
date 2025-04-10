@@ -199,6 +199,20 @@ chr1          911012     911029    1.8545506351134355
 ...
 ```
 
+### Summary Output
+
+When the analysis completes, the tool also prints a summary of peak counts and proportions:
+
+```
+--- Summary Statistics ---
+Peaks in untreated: 136292
+Peaks in treated: 110545
+Lost peaks: 131773 (96.7%)
+Gained peaks: 106309 (96.2%)
+```
+
+These statistics are computed by counting entries in the input BED files and the corresponding output `.bed` and `.tsv` files, providing a quick overview of genome-wide chromatin remodeling.
+
 ## Data Format Requirements
 
 This tool expects input files to conform to standard genomics file formats:
