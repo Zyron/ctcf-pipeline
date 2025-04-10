@@ -146,9 +146,9 @@ If a signal file is provided, additional files are generated:
 4. `gained_signal.tsv`: Signal values for peaks gained in treated samples
 
 ### Example Output
+Note: Filenames and figure labels (e.g., Figure_treated.png) reflect the signal file used in the run.
 
-When you run the tool, you'll see terminal output similar to:
-
+**Example: No Signal File**
 ```
 Loading and comparing peaks...
 Done comparing peaks:
@@ -156,8 +156,8 @@ Done comparing peaks:
   Peaks gained in treated: 106309 → data/output_nosignal/gained_in_treated.bed
 ```
 
-A run with treated signal analysis produces:
-
+**Example: Treated Signal Analysis**
+This produces similar output, but filenames will reflect that the untreated bigWig file was used (e.g., Figure_untreated.png).
 ```
 Loading and comparing peaks...
 Done comparing peaks:
@@ -176,35 +176,8 @@ Lost peaks: 131773 (96.7%)
 Gained peaks: 106309 (96.2%)
 ```
 
+**Example: Untreated Signal Analysis**
 A run with untreated signal analysis produces similar output with files named accordingly (e.g., `Figure_untreated.png`).
-
-Example content of `lost_in_treated.bed`:
-```
-chr1	151281150	151281177	.	1000	.	18.02459	2098.28711	2092.53076	975
-chr1	43650704	43650752	.	1000	.	21.51242	2030.96814	2025.28516	404
-chr1	151790075	151790083	.	1000	.	26.51963	2020.46899	2014.79834	540
-chr1	85277080	85277087	.	1000	.	22.67492	2010.8092	2005.15076	550
-chr1	244652583	244652584	.	1000	.	22.79047	1981.4137	1975.79688	242
-```
-
-Example content of `lost_signal.tsv`:
-```
-Chromosome    Start       End         Signal
-chr1          151281150   151281177   1.0202892709661413
-chr1          43650704    43650752    1.14902230600516
-chr1          151790075   151790083   1.2029950022697449
-...
-```
-
-Example content of `gained_signal.tsv`:
-```
-Chromosome    Start      End       Signal
-chr1          826738     826766    1.4911010733672552
-chr1          869489     869598    1.7651869802299989
-chr1          904135     904201    1.4459775758512092
-chr1          911012     911029    1.8545506351134355
-...
-```
 
 ### Summary Output
 
@@ -218,7 +191,7 @@ Lost peaks: 131773 (96.7%)
 Gained peaks: 106309 (96.2%)
 ```
 
-These statistics are computed by counting entries in the input BED files and the corresponding output `.bed` and `.tsv` files, providing a quick overview of genome-wide chromatin remodeling.
+These metrics are computed by counting entries in the input BED files and corresponding output `.bed` and `.tsv` files, providing a concise overview of genome-wide chromatin remodeling.
 
 ## Data Format Requirements
 
